@@ -1,0 +1,153 @@
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body
+{
+    display: flex;
+    flex-direction: column;
+    width: 100dvw;
+    height: 100dvh;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+/* ========================================================Header======================================================================= */
+header
+{
+    height: 8dvh;
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+}
+
+
+/* =============================================================Main=================================================================== */
+main
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    gap:4px;
+    padding: 6px 12px;
+}
+
+
+/* Data fetching button */
+#data-fetching-btn
+{
+    padding: 6px 12px;
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    background-color: cadetblue;
+    color: white;
+    box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.1);
+}
+
+#data-fetching-btn:hover
+{
+    color: cadetblue;
+    background: white;
+    border: 1px solid cadetblue;
+}
+
+#data-fetching-btn:active
+{
+    box-shadow: none;
+}
+
+#data-fetching-btn:focus
+{
+    color: cadetblue;
+    background:rgba(95,158,160,.1);
+    border: 1px solid cadetblue;
+}
+
+/* Styling the post div using id selector */
+#Posts-Container-div
+{
+    width:100%;
+    height: 80%;
+    border-radius: 4px;
+    overflow-y: auto;
+    display: none;
+    padding: 12px 12px;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.1);
+    flex-direction: column;
+    gap:24px;
+    align-items: center;
+}
+
+
+/* Styling post cards */
+.post-card
+{
+    width:420px;
+    padding: 6px 12px;
+    min-height: fit-content;
+    border: 1px solid black;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.post-card h4
+{
+    font-size: 1.2rem;
+}
+
+.post-card p
+{
+    font-size: .9rem;
+}
+
+/* Styling the post reactions like dislike and views */
+.post-reactions
+{
+    display: flex;
+    gap:12px;
+    flex-direction: row;
+    padding: 4px;
+}
+
+/* targetting the p tag inside the post reaction */
+.post-reactions p
+{
+    font-weight: 600;
+    font-size: .9rem;
+}
+
+
+/* //Styling the tag container which will contain the tags */
+.tag-container
+{
+    padding: 2px;
+    display: flex;
+    gap:6px;
+}
+
+.tag-container span
+{
+    color: rgb(43, 172, 172);
+}
+
+
+/* Media query */
+@media (max-width: 768px) {
+    .post-card
+    {
+        width:320px;
+    }
+}
