@@ -18,17 +18,23 @@ function handleError(err) {
 //Fetching:The Posts from the api
 //creating async function to handle the fetch post request;
 async function fetchPost() {
+  //creating a controller to cancel the get api request
   const controller = new AbortController();
+  //fetching the signal from the controller
   const signal = controller.signal;
 
-  const Timeout=setTimeout(()=>{
+  //creating a timeout frunction of 5 seconds to call the controller
+  const Timeout = setTimeout(() => {
+    //cancelling the request
     controller.abort();
-  },5000);
+  }, 5000);
 
-  return fetch("https://dummyjson.com/posts",{signal: signal})
-  .then((response)=>{
-    clearTimeout(Timeout);
-    if(response.ok)
+  //fetchig the data and passing the signal
+  return fetch("https://dummyjson.com/posts", { signal: signal })
+    .then((response) => {
+      //if api will return response then it will clear the timeout else continue and cancel the request after 5 seconds of api call
+      clearTimeout(Timeout);
+      if(response.ok)
       {
         return response.json();
       }
@@ -36,22 +42,23 @@ async function fetchPost() {
       {
         throw new Error(response.statusText);
       }
-  })
-  .then((result)=>{
-    Para.remove();
-    RenderingPost(result.posts);
-  })
-  .catch((err)=>{
-    if(err.name==="AbortError")
-      {
+    })
+    .then((result) => {
+      //removig loading text
+      Para.remove();
+      //calling the render post function
+      RenderingPost(result.posts);
+    })
+    .catch((err) => {
+      //if the request has been aborted
+      if (err.name === "AbortError") {
+        //then the text operation timed out will appear
         handleError("Operation Timed out");
-      }
-      else{ 
+      } else {
+        //else the error message will appear
         handleError(err.message);
       }
-
-  });
-
+    });
 }
 
 //Rendering:The Posts to the dom
@@ -69,6 +76,7 @@ function RenderingPost(data) {
              </div>
           </div>`;
     Post_Container.innerHTML += html;
+    //rending the tags to the post cards
     item.tags.map((tag) => {
       const tags = document.querySelector(`.tags${item.id}`);
       tags.innerHTML += `<span class="tag">#${tag}</span>`;
@@ -78,9 +86,13 @@ function RenderingPost(data) {
 
 //Adding: Event Listener Click to handle fetch data call
 Button.addEventListener("click", () => {
-  Post_Container.innerHTML="";
+  //removing the content of post container div
+  Post_Container.innerHTML = "";
+  //setting the text
   Para.innerHTML = "Loading...";
+  //appending it to the dom
   Post_Container.appendChild(Para);
   Post_Container.style.display = "flex";
+  //calling the fetch post btn
   fetchPost();
 });

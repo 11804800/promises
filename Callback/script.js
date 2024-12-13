@@ -16,13 +16,17 @@ function handleError(err) {
 //Callback Function for fetching data 
 async function getData(CallBack)
 {
+  //it will fetch the data if passed 
     try{
         const res=await fetch("https://dummyjson.com/posts");
         const result=await res.json();
+        //call the render function
+        //as callback function 
         CallBack(result.posts);
     }
     catch(err)
     {
+      //error function will be shown if any kind of error occurs
         handleError(err.message);
     }
 }
@@ -31,7 +35,13 @@ async function getData(CallBack)
 //Fetching:The Posts from the api
 //creating async function to handle the fetch post request;
 function fetchPost(CallBack,CallBack1) {
+
+  //this will initiate a setTimeout for 5 seconds
     setTimeout(()=>{
+      //as the time will be finished
+      //it will call the callback function and passing the callback2 as argument to complete 
+      //callback:getData()
+      //Callback1:RenderingPost()
         CallBack(CallBack1);
     },5000);
 }
@@ -61,10 +71,16 @@ function RenderingPost(data) {
 
 //Adding: Event Listener Click to handle fetch data call
 Button.addEventListener("click", () => {
+
+  //Removing all the post cards if  the button will be called again
   Post_Container.innerHTML="";
+  //setting the text
   Para.innerHTML = "CallBack executed after 5 seconds ....";
+  //apepending the text to the post container div
   Post_Container.appendChild(Para);
+  //setting the display none to flex
   Post_Container.style.display = "flex";
+  //calling the fetch post function and passing the function as the agrument for call back
   fetchPost(getData,RenderingPost);
 });
 

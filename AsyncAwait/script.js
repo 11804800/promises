@@ -14,6 +14,7 @@ var Para = document.createElement("p");
 //Creating: The function to handle error
 //this update the p tag showing error message
 function handleError(err) {
+  //writting the error message to the post container p tag
   Para.innerHTML=err.message;
 }
 
@@ -29,7 +30,9 @@ async function fetchPost() {
 
   //converting it to json
   const result = await res.json();
+  //removing the loading text
   Para.remove();
+  //showing the posts on the page
   RenderingPost(result.posts);
   }
   catch(err)
@@ -58,7 +61,9 @@ function RenderingPost(data) {
            </div>
         </div>`;
     Post_Container.innerHTML += html;
+    //rendering the tags to the post cards
     item.tags.map((tag) => {
+      //accessing by tagsid unique for all the post cards
       const tags = document.querySelector(`.tags${item.id}`);
       tags.innerHTML += `<span class="tag">#${tag}</span>`;
     });
@@ -67,9 +72,14 @@ function RenderingPost(data) {
 
 //Adding: Event Listener Click to handle fetch data call
 Button.addEventListener("click", () => {
+  //remove all the texts 
   Post_Container.innerHTML="";
+  //setting loading
   Para.innerHTML = "Loading...";
+  //appending to the post container div
   Post_Container.appendChild(Para);
+  //changing the display from none to flex
   Post_Container.style.display = "flex";
+  //calling the fetch data function
   fetchPost();
 });
